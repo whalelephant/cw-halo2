@@ -1,4 +1,4 @@
-use cw_halo2_verifier::proof_system;
+use halo2_verifier::proof_system;
 
 mod error;
 mod fs;
@@ -18,7 +18,7 @@ pub fn main() {
         fs::read_inputs_from_file(cache, "Verifier", &public_abi).unwrap();
     let public_inputs = public_abi.encode(&public_inputs_map, return_value).unwrap();
 
-    proof_system::verify_with_vk(
+    let verified = proof_system::verify_with_vk(
         &mut crs,
         &proof,
         public_inputs,
@@ -26,4 +26,6 @@ pub fn main() {
         &program.verification_key,
     )
     .unwrap();
+
+    println!("verifier: {}", verified);
 }

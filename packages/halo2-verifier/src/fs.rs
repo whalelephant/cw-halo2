@@ -10,7 +10,13 @@ use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
 pub(crate) fn get_current_dir() -> PathBuf {
-    std::env::current_dir().unwrap()
+    std::env::current_dir()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .parent()
+        .unwrap()
+        .to_path_buf()
 }
 
 pub(crate) fn read_program_from_file<P: AsRef<Path>>(
